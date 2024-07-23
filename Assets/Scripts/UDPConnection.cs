@@ -10,6 +10,7 @@ using System.Threading;
 
 public class UDPConnection : MonoBehaviour
 {
+    [SerializeField] List<GameObject> models;
     [SerializeField] Toggle flagClient;
     userDB udb;
 
@@ -23,6 +24,8 @@ public class UDPConnection : MonoBehaviour
 
     const int SERVER_PORT = 9000;
     const int CLIENT_PORT = 9001;
+
+    int modelLength;
 
     void Start()
     {
