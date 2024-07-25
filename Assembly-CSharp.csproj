@@ -56,10 +56,15 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/MonoBundle/Addins/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/UDPConnection.cs" />
-    <Compile Include="Assets/Scripts/userDB.cs" />
-    <Compile Include="Assets/Scripts/UDPClient.cs" />
-    <Compile Include="Assets/Scripts/UDPServer.cs" />
+    <Compile Include="Assets/Scripts/IshikawaPlayer.cs" />
+    <Compile Include="Assets/Scripts/TokyoPlayer.cs" />
+    <Compile Include="Assets/Scripts/Mitsuru/UDPConnection.cs" />
+    <Compile Include="Assets/Scripts/Mitsuru/userDB.cs" />
+    <Compile Include="Assets/Scripts/Mitsuru/UDPClient.cs" />
+    <Compile Include="Assets/Scripts/ChangeCamera.cs" />
+    <Compile Include="Assets/Scripts/Mitsuru/UDPServer.cs" />
+    <Compile Include="Assets/Scripts/Mitsuru/TCPClient.cs" />
+    <Compile Include="Assets/Scripts/Mitsuru/TCPServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
