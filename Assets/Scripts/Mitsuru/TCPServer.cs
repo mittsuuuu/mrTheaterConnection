@@ -37,8 +37,9 @@ public class TCPServer : MonoBehaviour
 
         // クライアントからの接続を待機する
         tcpClient = tcpListener.AcceptTcpClient();
+        var client_data = tcpClient.Client;
 
-        Debug.Log("接続完了");
+        Debug.Log("接続完了 : " + client_data);
 
         networkStream = tcpClient.GetStream();
 
