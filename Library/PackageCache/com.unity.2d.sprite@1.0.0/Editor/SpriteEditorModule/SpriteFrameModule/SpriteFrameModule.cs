@@ -268,8 +268,7 @@ namespace UnityEditor.U2D.Sprites
 
             spriteRect.spriteID = GUID.Generate();
 
-            if (!m_RectsCache.Add(spriteRect))
-                return -1;
+            m_RectsCache.Add(spriteRect);
             spriteEditor.SetDataModified();
 
             return m_RectsCache.spriteRects.Count - 1;
@@ -532,24 +531,6 @@ namespace UnityEditor.U2D.Sprites
                 selected = null;
                 spriteEditor.SetDataModified();
             }
-        }
-
-        public bool IsOnlyUsingDefaultNamedSpriteRects()
-        {
-            var onlyDefaultNames = true;
-            var names = m_RectsCache.spriteNames;
-            var defaultName = m_SpriteNameStringBuilder.ToString();
-
-            foreach (var name in names)
-            {
-                if (!name.Contains(defaultName))
-                {
-                    onlyDefaultNames = false;
-                    break;
-                }
-            }
-
-            return onlyDefaultNames;
         }
     }
 }

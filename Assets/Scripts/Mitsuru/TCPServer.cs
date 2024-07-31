@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -19,6 +20,9 @@ public class TCPServer : MonoBehaviour
 
     private string receiveMessage = string.Empty;
 
+    // テスト用
+    private string sendMessage    = "Connection is OK";
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -37,9 +41,12 @@ public class TCPServer : MonoBehaviour
 
         // クライアントからの接続を待機する
         tcpClient = tcpListener.AcceptTcpClient();
-        var client_data = tcpClient.Client;
 
-        Debug.Log("接続完了 : " + client_data);
+        var client_data = tcpClient.Client;
+        IPEndPoint re = (IPEndPoint)client_data.RemoteEndPoint; // クライアントのデータを格納する変数
+       
+        Debug.Log(re.Address.ToString());
+        Debug.Log("接続完了 : " + re.AddressFamily + ", " + re.Address + ", " + re.Port) ; // クライアントのIPとポートの表示
 
         networkStream = tcpClient.GetStream();
 
@@ -70,6 +77,26 @@ public class TCPServer : MonoBehaviour
 
     private void OnGUI()
     {
+        if (GUILayout.Button("送信返し"))
+        {
+            try
+            {
+                var buffer = Encoding.UTF8.GetBytes(sendMessage);
+
+                if (networkStream != null)
+                {
+                    networkStream.Write(buffer, 0, buffer.Length);
+                }
+                else
+                {
+                    Debug.Log("null");
+                }
+            }
+            catch (Exception)
+            {
+                Debug.LogError("送信失敗");
+            }
+        }
         GUILayout.TextArea(receiveMessage);
     }
 

@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class userDB : MonoBehaviour
 {
-    string IP;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    string _ip;
+    int _port;
+    int _id;
 
     // DBにデータを登録する用のメソッド
-    public void RegisterData()
+    public void RegisterData(string ip, int port)
     {
-
+        _ip = ip;
+        _port = port;
     }
 }
