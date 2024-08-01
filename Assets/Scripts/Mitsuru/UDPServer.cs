@@ -34,6 +34,11 @@ public class UDPServer : MonoBehaviour
         client.Send(message, message.Length) ;
     }
 
+    private void ReceiveDatas()
+    {
+
+    }
+
     private void OnDestroy()
     {
         foreach (UdpClient uc in udpClients) uc.Dispose();
