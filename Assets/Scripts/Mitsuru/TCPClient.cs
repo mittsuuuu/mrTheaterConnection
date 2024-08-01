@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 /// <summary>
 /// 初回にTCP通信を行うクライアント側のスクリプト
@@ -32,6 +33,7 @@ public class TCPClient : MonoBehaviour
             Debug.LogError("接続失敗");
         }
 
+        Task.Run(() => Listen());
     }
 
     /// <summary>
@@ -76,5 +78,16 @@ public class TCPClient : MonoBehaviour
         networkStream?.Dispose();
 
         Debug.Log("切断");
+    }
+
+    private void Listen()
+    {
+        while(true)
+        {
+            var buffer = new byte[256];
+            var count = networkStream.Read(buffer, 0, buffer.Length);
+            var message = Encoding.UTF8.GetString(buffer, 0, count);
+            Debug.LogFormat("受信したメッセージ：{0}", message);
+        }
     }
 }
