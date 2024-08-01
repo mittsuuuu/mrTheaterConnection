@@ -7,12 +7,19 @@ public class User
     string _ip;
     int _port;
     int _id;
+    Transform? _tf;
 
     public User(string ip, int port, int id)
     {
         _ip = ip;
         _port = port;
         _id = id;
+        _tf = null;
+    }
+
+    public void setTransform(Transform tf)
+    {
+        _tf = tf;
     }
 
     public string IP
@@ -26,5 +33,9 @@ public class User
     public int ID
     {
         get { return _id; }
+    }
+    public Transform TF
+    {
+        get => _tf;
     }
 }
