@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class TCPServer : MonoBehaviour
 {
-    public string server_ip = "";
+    public string server_ip = "10.140.2.163";
     public int server_port = 9000;
 
     private TcpListener tcpListener;
@@ -29,26 +29,25 @@ public class TCPServer : MonoBehaviour
 
     private void Awake()
     {
-        Task.Run(() => OnProcess());
-    }
-
-    private void OnProcess()
-    {
         var ipAddress = IPAddress.Parse(server_ip);
         tcpListener = new TcpListener(ipAddress, server_port);
         tcpListener.Start();
-        Debug.Log("待機中");
 
+        Task.Run(() => Wait());
+    }
+
+    private void OnProcess(TcpClient client)
+    {
         // クライアントからの接続を待機する
-        tcpClient = tcpListener.AcceptTcpClient();
+        //tcpClient = tcpListener.AcceptTcpClient();
 
-        var client_data = tcpClient.Client;
+        var client_data = client.Client;
         IPEndPoint re = (IPEndPoint)client_data.RemoteEndPoint; // クライアントのデータを格納する変数
        
         Debug.Log(re.Address.ToString());
         Debug.Log("接続完了 : " + re.AddressFamily + ", " + re.Address + ", " + re.Port) ; // クライアントのIPとポートの表示
 
-        networkStream = tcpClient.GetStream();
+        networkStream = client.GetStream();
 
         while (true)
         {
@@ -62,7 +61,7 @@ public class TCPServer : MonoBehaviour
 
                 OnDestroy();
 
-                Task.Run(() => OnProcess());
+                //Task.Run(() => OnProcess());
 
                 break;
             }
@@ -79,6 +78,7 @@ public class TCPServer : MonoBehaviour
     {
         if (GUILayout.Button("送信返し"))
         {
+            Debug.Log(networkStream);
             try
             {
                 var buffer = Encoding.UTF8.GetBytes(sendMessage);
@@ -86,6 +86,7 @@ public class TCPServer : MonoBehaviour
                 if (networkStream != null)
                 {
                     networkStream.Write(buffer, 0, buffer.Length);
+                    Debug.Log("送信成功");
                 }
                 else
                 {
@@ -105,5 +106,19 @@ public class TCPServer : MonoBehaviour
         networkStream?.Dispose();
         tcpClient?.Dispose();
         tcpListener?.Stop();
+    }
+
+    private void Wait()
+    {
+        Debug.Log("待機中");
+        TcpClient client = tcpListener.AcceptTcpClient();
+
+        Debug.Log("setuzoku");
+        Task.Run(() => OnProcess(client));
+    }
+
+    private void Update()
+    {
+
     }
 }
