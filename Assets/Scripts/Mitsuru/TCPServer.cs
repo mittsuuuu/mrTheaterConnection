@@ -11,11 +11,14 @@ using UnityEngine;
 
 public class TCPServer : MonoBehaviour
 {
+    userDB userDb;
+
+    [SerializeField] GameObject connectionManager;
+
     public string server_ip = "10.140.2.163";
     public int server_port = 9000;
 
     private TcpListener tcpListener;
-    private TcpClient tcpClient;
     private NetworkStream networkStream;
 
     private string receiveMessage = string.Empty;
@@ -33,18 +36,17 @@ public class TCPServer : MonoBehaviour
         tcpListener = new TcpListener(ipAddress, server_port);
         tcpListener.Start();
 
+        userDb = connectionManager.GetComponent<userDB>();
+
         Task.Run(() => Wait());
     }
 
     private void OnProcess(TcpClient client)
     {
-        // クライアントからの接続を待機する
-        //tcpClient = tcpListener.AcceptTcpClient();
-
         var client_data = client.Client;
         IPEndPoint re = (IPEndPoint)client_data.RemoteEndPoint; // クライアントのデータを格納する変数
-       
-        Debug.Log(re.Address.ToString());
+
+        userDb.registerData(re.Address.ToString(), re.Port);
         Debug.Log("接続完了 : " + re.AddressFamily + ", " + re.Address + ", " + re.Port) ; // クライアントのIPとポートの表示
 
         networkStream = client.GetStream();
@@ -59,9 +61,8 @@ public class TCPServer : MonoBehaviour
             {
                 Debug.Log("切断");
 
+                client?.Dispose();
                 OnDestroy();
-
-                //Task.Run(() => OnProcess());
 
                 break;
             }
@@ -104,21 +105,18 @@ public class TCPServer : MonoBehaviour
     private void OnDestroy()
     {
         networkStream?.Dispose();
-        tcpClient?.Dispose();
         tcpListener?.Stop();
     }
 
     private void Wait()
     {
         Debug.Log("待機中");
-        TcpClient client = tcpListener.AcceptTcpClient();
 
-        Debug.Log("setuzoku");
-        Task.Run(() => OnProcess(client));
-    }
+        while(true)
+        {
+            TcpClient client = tcpListener.AcceptTcpClient();
 
-    private void Update()
-    {
-
+            Task.Run(() => OnProcess(client));
+        }
     }
 }

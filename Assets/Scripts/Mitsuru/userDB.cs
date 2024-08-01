@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class userDB : MonoBehaviour
 {
-    string _ip;
-    int _port;
-    int _id;
+    User user;
+
+    List<User> usersDB;
+
+    private void Start()
+    {
+        usersDB = new List<User>();
+    }
 
     // DBにデータを登録する用のメソッド
-    public void RegisterData(string ip, int port)
+    public void registerData(string ip, int port)
     {
-        _ip = ip;
-        _port = port;
+        int id = usersDB.Count;
+        user = new User(ip, port, id);
+        usersDB.Add(user);
+
+        foreach(User u in usersDB)
+        {
+            //Debug.Log(u.IP + ", " + u.PORT + ", " + u.ID);
+        }
     }
 }
