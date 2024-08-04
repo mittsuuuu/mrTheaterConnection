@@ -205,7 +205,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &278711917
 PrefabInstance:
@@ -302,7 +302,7 @@ Transform:
   m_Children:
   - {fileID: 1596055339}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &325624093
 GameObject:
@@ -830,7 +830,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1596055337
 GameObject:
@@ -842,6 +842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596055339}
   - component: {fileID: 1596055338}
+  - component: {fileID: 1596055340}
   m_Layer: 0
   m_Name: ClientSystem
   m_TagString: Untagged
@@ -861,7 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcb00f392bcb40ee825c0b9fe8efe15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  server_ip: 10.140.2.163
+  server_ip: 192.168.10.129
   server_port: 9000
 --- !u!4 &1596055339
 Transform:
@@ -878,6 +879,18 @@ Transform:
   m_Father: {fileID: 309218493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1596055340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596055337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040fe84e019754774b56140de3b1a197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1605084970
 PrefabInstance:
   m_ObjectHideFlags: 0
