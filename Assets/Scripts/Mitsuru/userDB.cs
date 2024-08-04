@@ -5,8 +5,10 @@ using UnityEngine;
 public class userDB : MonoBehaviour
 {
     User user;
+    UDPServer udpServer;
 
     List<User> usersDB;
+    [SerializeField] List<GameObject> models;
 
     private void Start()
     {
@@ -24,10 +26,10 @@ public class userDB : MonoBehaviour
         user = new User(ip, port, id);
         usersDB.Add(user);
 
-        foreach(User u in usersDB)
-        {
-            //Debug.Log(u.IP + ", " + u.PORT + ", " + u.ID);
-        }
+        //foreach(User u in usersDB)
+        //{
+        //    Debug.Log(u.IP + ", " + u.PORT + ", " + u.ID);
+        //}
     }
 
     public void setTransform(int id, Transform rtf)

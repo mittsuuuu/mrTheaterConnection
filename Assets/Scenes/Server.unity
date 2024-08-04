@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18979042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.482627, y: 3.0279727, z: 1.3179216}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -340,6 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 226491116}
   - component: {fileID: 226491115}
+  - component: {fileID: 226491117}
   m_Layer: 0
   m_Name: ServerSystem
   m_TagString: Untagged
@@ -360,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionManager: {fileID: 1139650404}
-  server_ip: 10.140.2.163
+  server_ip: 192.168.10.129
   server_port: 9000
 --- !u!4 &226491116
 Transform:
@@ -369,14 +370,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226491114}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.482627, y: -2.0279727, z: 88.682076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 18979043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226491117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226491114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5966532dfc7ea4156963f379966d11b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectionManager: {fileID: 1139650404}
 --- !u!1 &409432797
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,7 +827,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858833196}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &858833198
 Camera:
   m_ObjectHideFlags: 0
@@ -996,6 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4f14902b9b84f2a8eaf8a26bf332ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  models: []
 --- !u!1 &1141521449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,7 +1036,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141521449}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1141521451
 Camera:
   m_ObjectHideFlags: 0
@@ -1489,7 +1504,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975947634}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1975947636
 Camera:
   m_ObjectHideFlags: 0

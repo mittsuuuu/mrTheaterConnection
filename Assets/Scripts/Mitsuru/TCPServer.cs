@@ -12,6 +12,7 @@ using UnityEngine;
 public class TCPServer : MonoBehaviour
 {
     userDB userDb;
+    UDPServer udpServer;
 
     [SerializeField] GameObject connectionManager;
 
@@ -32,11 +33,14 @@ public class TCPServer : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(gameObject.transform.position);
+
         var ipAddress = IPAddress.Parse(server_ip);
         tcpListener = new TcpListener(ipAddress, server_port);
         tcpListener.Start();
 
         userDb = connectionManager.GetComponent<userDB>();
+        udpServer = gameObject.GetComponent<UDPServer>();
 
         Task.Run(() => Wait());
     }
