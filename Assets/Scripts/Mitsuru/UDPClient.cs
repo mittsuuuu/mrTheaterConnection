@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 public class UDPClient : MonoBehaviour
 {
-    TCPServer tcpServer;
+    TCPClient tcpClient;
 
     UdpClient udpClient;
 
@@ -17,9 +17,11 @@ public class UDPClient : MonoBehaviour
 
     private void Start()
     {
-        ip = tcpServer.server_ip;
-        port = tcpServer.server_port;
+        tcpClient = gameObject.GetComponent<TCPClient>();
+        ip = tcpClient.server_ip;
+        port = tcpClient.server_port;
 
+        Debug.Log("UDP : " + ip + ", " + port);
         udpClient = new UdpClient(ip, port);
     }
 
@@ -34,8 +36,10 @@ public class UDPClient : MonoBehaviour
     {
         while(true)
         {
+            Debug.Log("sending");
             var message = Encoding.UTF8.GetBytes(id.ToString() + "," + transform.ToString());
             udpClient.Send(message, message.Length);
+            Debug.Log("UDP Sent" + message);
         }
     }
 

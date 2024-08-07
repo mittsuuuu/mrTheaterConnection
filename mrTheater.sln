@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.sony.mocopi.receiver", "com.sony.mocopi.receiver.csproj", "{F235A3BC-56F2-AB2B-3D5A-45603DF9BD34}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{4791BEBF-5F8F-1D86-82A2-55B8F8099BF0}"
 EndProject
 Global
@@ -9,6 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F235A3BC-56F2-AB2B-3D5A-45603DF9BD34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F235A3BC-56F2-AB2B-3D5A-45603DF9BD34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F235A3BC-56F2-AB2B-3D5A-45603DF9BD34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F235A3BC-56F2-AB2B-3D5A-45603DF9BD34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4791BEBF-5F8F-1D86-82A2-55B8F8099BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4791BEBF-5F8F-1D86-82A2-55B8F8099BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4791BEBF-5F8F-1D86-82A2-55B8F8099BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU

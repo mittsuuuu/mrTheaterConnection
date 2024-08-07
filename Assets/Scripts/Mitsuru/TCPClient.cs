@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 /// </summary>
 public class TCPClient : MonoBehaviour
 {
+    UDPClient udpClient;
+
     public string server_ip = "";
     public int server_port = 9000;
 
@@ -20,6 +22,8 @@ public class TCPClient : MonoBehaviour
 
     private void Awake()
     {
+        udpClient = gameObject.GetComponent<UDPClient>();
+
         try
         {
             tcpClient = new TcpClient(server_ip, server_port);
@@ -82,12 +86,18 @@ public class TCPClient : MonoBehaviour
 
     private void Listen()
     {
-        while(true)
+        while (true)
         {
             var buffer = new byte[256];
             var count = networkStream.Read(buffer, 0, buffer.Length);
             var message = Encoding.UTF8.GetString(buffer, 0, count);
             Debug.LogFormat("受信したメッセージ：{0}", message);
+            String[] text = message.Split(",");
+            if (text[0].Equals("ID"))
+            {
+                Debug.Log("set id");
+                udpClient.setId(int.Parse(text[1]));
+            }
         }
     }
 }
