@@ -361,11 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionManager: {fileID: 1139650404}
-<<<<<<< HEAD
-  server_ip: 10.4.34.10
-=======
   server_ip: 10.140.2.163
->>>>>>> mitsuru
   server_port: 9000
 --- !u!4 &226491116
 Transform:

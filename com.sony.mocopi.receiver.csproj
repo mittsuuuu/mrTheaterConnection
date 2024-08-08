@@ -56,11 +56,11 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/MonoBundle/Addins/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/MocopiReceiver/Runtime/Core/MocopiUdpReceiver.cs" />
-    <Compile Include="Assets/MocopiReceiver/Runtime/SonyMotionFormat/Scripts/SonyMotionFormat.cs" />
-    <Compile Include="Assets/MocopiReceiver/Runtime/MocopiSimpleReceiver.cs" />
-    <Compile Include="Assets/MocopiReceiver/Runtime/MocopiAvatar.cs" />
     <Compile Include="Assets/MocopiReceiver/Runtime/MocopiAvatarBase.cs" />
+    <Compile Include="Assets/MocopiReceiver/Runtime/Core/MocopiUdpReceiver.cs" />
+    <Compile Include="Assets/MocopiReceiver/Runtime/MocopiSimpleReceiver.cs" />
+    <Compile Include="Assets/MocopiReceiver/Runtime/SonyMotionFormat/Scripts/SonyMotionFormat.cs" />
+    <Compile Include="Assets/MocopiReceiver/Runtime/MocopiAvatar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/MocopiReceiver/Runtime/SonyMotionFormat/Plugins/sony_motion_format.dll" />
