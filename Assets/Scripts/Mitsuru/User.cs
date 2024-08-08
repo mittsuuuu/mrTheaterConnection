@@ -7,19 +7,23 @@ public class User
     string _ip;
     int _port;
     int _id;
-    Transform? _tf;
+
+    Vector3 _pos;
+    Quaternion _ro;
 
     public User(string ip, int port, int id)
     {
         _ip = ip;
         _port = port;
         _id = id;
-        _tf = null;
+        _pos = Vector3.zero;
+        _ro = new Quaternion(0, 0, 0, 0);
     }
 
-    public void setTransform(Transform tf)
+    public void setTransform(Vector3 pos, Quaternion ro)
     {
-        _tf = tf;
+        _pos = pos;
+        _ro = ro;
     }
 
     public string IP
@@ -33,9 +37,5 @@ public class User
     public int ID
     {
         get { return _id; }
-    }
-    public Transform TF
-    {
-        get => _tf;
     }
 }
