@@ -25,18 +25,27 @@ public class userDB : MonoBehaviour
         int id = usersDB.Count;
         user = new User(ip, port, id);
         usersDB.Add(user);
-
-        //foreach(User u in usersDB)
-        //{
-        //    Debug.Log(u.IP + ", " + u.PORT + ", " + u.ID);
-        //}
     }
 
-    public void setTransform(int id, Transform rtf)
+    /// <summary>
+    /// データベースにTransformの情報を渡し，モデルに反映させる
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="pos"></param>
+    /// <param name="ro"></param>
+    public void setTransform(int id,  Vector3 pos, Quaternion ro)
     {
-        usersDB[id].setTransform(rtf);
+        usersDB[id].setTransform(pos, ro);
+        models[id].transform.position = pos;
+        models[id].transform.rotation = ro;
     }
 
+    /// <summary>
+    /// IPアドレスが一致するIDをDBから探し返す
+    /// ない場合は-1を返す
+    /// </summary>
+    /// <param name="addr"></param>
+    /// <returns></returns>
     public int getId(string addr)
     {
         foreach(User u in usersDB)
@@ -48,8 +57,8 @@ public class userDB : MonoBehaviour
         }
         return -1;
     }
-    public Transform getData(int id)
-    {
-        return usersDB[id].TF;
-    }
+    //public Transform getData(int id)
+    //{
+    //    return usersDB[id].TF;
+    //}
 }

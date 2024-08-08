@@ -361,7 +361,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionManager: {fileID: 1139650404}
+<<<<<<< HEAD
   server_ip: 10.4.34.10
+=======
+  server_ip: 10.140.2.163
+>>>>>>> mitsuru
   server_port: 9000
 --- !u!4 &226491116
 Transform:
@@ -700,6 +704,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762789789}
   m_CullTransparentMesh: 1
+--- !u!1 &801451077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2480036982518992292, guid: 42abdbd4b75d8df4d8cf20ff657fd72c, type: 3}
+  m_PrefabInstance: {fileID: 921819337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &804892377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +1019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4f14902b9b84f2a8eaf8a26bf332ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  models: []
+  models:
+  - {fileID: 801451077}
 --- !u!1 &1141521449
 GameObject:
   m_ObjectHideFlags: 0
