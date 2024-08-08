@@ -55,7 +55,7 @@ public class TCPServer : MonoBehaviour
 
     private void OnProcess(TcpClient client)
     {
-        var client_data = client.Client;
+        Socket client_data = client.Client;
         IPEndPoint re = (IPEndPoint)client_data.RemoteEndPoint; // クライアントのデータを格納する変数
 
         userDb.registerData(re.Address.ToString(), re.Port);
@@ -79,7 +79,6 @@ public class TCPServer : MonoBehaviour
 
                 client?.Dispose();
                 net?.Dispose();
-                OnDestroy();
 
                 break;
             }
