@@ -24,18 +24,7 @@ public class TCPClient : MonoBehaviour
     {
         udpClient = gameObject.GetComponent<UDPClient>();
 
-        try
-        {
-            tcpClient = new TcpClient(server_ip, server_port);
-            networkStream = tcpClient.GetStream();
-            isConnection = true;
-
-            Debug.Log(gameObject.name + " 接続成功");
-        }
-        catch (SocketException)
-        {
-            Debug.LogError("接続失敗");
-        }
+        WaitConnection();
 
         Task.Run(() => Listen());
     }
@@ -98,6 +87,22 @@ public class TCPClient : MonoBehaviour
                 Debug.Log("set id");
                 udpClient.setId(int.Parse(text[1]));
             }
+        }
+    }
+
+    private void WaitConnection()
+    {
+        try
+        {
+            tcpClient = new TcpClient(server_ip, server_port);
+            networkStream = tcpClient.GetStream();
+            isConnection = true;
+
+            Debug.Log(gameObject.name + " 接続成功");
+        }
+        catch (SocketException)
+        {
+            Debug.LogError("接続失敗");
         }
     }
 }

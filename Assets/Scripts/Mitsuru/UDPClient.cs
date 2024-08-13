@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 using System.Net.Sockets;
 
 public class UDPClient : MonoBehaviour
 {
+    [SerializeField] GameObject avater;
     TCPClient tcpClient;
 
     UdpClient udpClient;
+
+    Transform tf;
 
     string ip;
     int port;
@@ -21,8 +25,11 @@ public class UDPClient : MonoBehaviour
         ip = tcpClient.server_ip;
         port = tcpClient.server_port;
 
+        tf = avater.GetComponent<Transform>();
+
         Debug.Log("UDP : " + ip + ", " + port);
         udpClient = new UdpClient(ip, port);
+        Debug.Log("UDPClient : " + (IPEndPoint)udpClient.Client.RemoteEndPoint);
     }
 
     public void setId(int id)
@@ -37,8 +44,9 @@ public class UDPClient : MonoBehaviour
         while(true)
         {
             Debug.Log("sending");
-            var message = Encoding.UTF8.GetBytes(id.ToString() + "," + transform.ToString());
-            udpClient.Send(message, message.Length);
+            string message = tf.position.ToString(); //Ç±Ç±Ç≈ÉGÉâÅ[
+            Debug.Log(message);
+            //udpClient.Send(message, message.Length);
             Debug.Log("UDP Sent" + message);
         }
     }
