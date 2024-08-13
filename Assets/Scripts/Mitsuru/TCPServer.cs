@@ -55,6 +55,8 @@ public class TCPServer : MonoBehaviour
 
     private void OnProcess(TcpClient client)
     {
+        int thisID;
+
         Socket client_data = client.Client;
         IPEndPoint re = (IPEndPoint)client_data.RemoteEndPoint; // クライアントのデータを格納する変数
 
@@ -65,8 +67,11 @@ public class TCPServer : MonoBehaviour
         networkStream = client.GetStream();
         networkStreams.Add(networkStream);
         var net = networkStreams[networkStreams.Count - 1];
-        net.Write(Encoding.UTF8.GetBytes("ID,"+1.ToString()));
 
+        thisID = userDb.NUM - 1;
+
+        net.Write(Encoding.UTF8.GetBytes("ID,"+thisID.ToString()));
+        
         while (true)
         {
             var buffer = new byte[256];
@@ -76,6 +81,7 @@ public class TCPServer : MonoBehaviour
             if (count == 0)
             {
                 Debug.Log("切断");
+                userDb.removeData(thisID);
 
                 client?.Dispose();
                 net?.Dispose();

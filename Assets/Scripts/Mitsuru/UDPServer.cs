@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,51 +14,56 @@ public class UDPServer : MonoBehaviour
 
     [SerializeField] GameObject connectionManager;
 
-    List<UdpClient> udpClients;
+    UdpClient client;
+    
+    List<CancellationTokenSource> tokenSources;
+    List<CancellationToken> cts;
 
     Thread thread;
 
     void Start()
     {
         userDb = connectionManager.GetComponent<userDB>();
-        udpClients = new List<UdpClient>();
+        tokenSources = new List<CancellationTokenSource>();
+        cts = new List<CancellationToken>();
+
+        client = new UdpClient(9000);
     }
 
     public void addClient(string addr, int port)
     {
         Debug.Log("add client udp");
-        udpClients.Add(new UdpClient(addr, port));
+        try
+        {
+            tokenSources.Add(new CancellationTokenSource());
+            cts.Add(tokenSources[tokenSources.Count - 1].Token);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+        
 
-        Task.Run(() => ReceiveDatas(udpClients[udpClients.Count-1]));
-        //Task.Run(() => SendData(udpClients[udpClients.Count-1], addr));
-        //SendData(udpClients[udpClients.Count - 1], addr);
-
-       // udpClients[udpClients.Count - 1].BeginReceive(ReceiveDatas, udpClients[udpClients.Count - 1]);
+        Task.Run(() => ReceiveDatas( cts.Count-1), cts[cts.Count-1]);
     }
 
-    // クライアントが増えた時にクライアントが保持する情報を渡す
-    //private void SendData(UdpClient client, string addr)
-    //{
-    //    int id = userDb.getId(addr);
-    //    Transform tf = userDb.getData(id);
-    //    var message = Encoding.UTF8.GetBytes(tf.ToString());
-    //    client.Send(message, message.Length) ;
-    //}
 
     // データを受け取るメソッド
-    private void ReceiveDatas(UdpClient client)
+    private void ReceiveDatas( int ctId)
     {
+        bool connection = true;
+        Debug.Log("Receiving");
         int myId = -1;
-        Vector3 pos;
-        Quaternion ro;
+        Vector3 pos = new Vector3(0, 0, 0);
+        Quaternion ro = new Quaternion(0, 0, 0, 0);
 
         float[] transforms = new float[7];
 
-        while (true)
-        {
-            Debug.Log("UDP receiving by " + client.Client);
-            IPEndPoint ipEnd = null;
+        //Debug.Log("UDP receiving by " + client.Client.RemoteEndPoint);
+        IPEndPoint ipEnd = null;
 
+        while (connection)
+        {            
             byte[] getByte = client.Receive(ref ipEnd);
 
             var receiveMessage = Encoding.UTF8.GetString(getByte);
@@ -65,24 +71,39 @@ public class UDPServer : MonoBehaviour
 
             string[] messages = receiveMessage.Split(',');
 
-            // id, pos_x, pos_y, pos_z, ro_x, ro_y, ro_z, ro_w
+            //Debug.Log("getByte : " + messages.Length);
+
+            ///< summary>
+            /// 含まれる引数：id, pos_x, pos_y, pos_z, ro_x, ro_y, ro_z, ro_w
+            /// </summary>
             if (messages.Length >= 8)
             {
                 myId = int.Parse(messages[0]);
                 for (int i = 1; i < 8; i++) transforms[i - 1] = float.Parse(messages[i]);
             }
-            pos = new Vector3(transforms[0], transforms[1], transforms[2]);
-            ro = new Quaternion(transforms[3], transforms[4], transforms[5], transforms[6]);
+            //Debug.Log("convert string to float");
+            pos.Set(transforms[0], transforms[1], transforms[2]);
+            ro.Set(transforms[3], transforms[4], transforms[5], transforms[6]);
 
-            userDb.setTransform(myId, pos, ro);
+            try
+            {
+                userDb.setTransform(myId, pos, ro);
+            }
+            catch(Exception e)
+            {
+                connection = false;
+                //Debug.LogError(myId + e.ToString());
+            }
+            //Debug.Log("Received : " + receiveMessage);
+        }
+        Debug.Log("UDP終わり");
 
-            Debug.Log(getByte);
-        }        
+        cts[ctId].ThrowIfCancellationRequested();
     }
 
     private void OnDestroy()
     {
-        foreach (UdpClient uc in udpClients) uc.Dispose();
-        
+        client.Dispose();
+        foreach (CancellationTokenSource t in tokenSources) t.Dispose();
     }
 }

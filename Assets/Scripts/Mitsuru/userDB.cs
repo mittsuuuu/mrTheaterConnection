@@ -10,9 +10,26 @@ public class userDB : MonoBehaviour
     List<User> usersDB;
     [SerializeField] List<GameObject> models;
 
+    /// <summary>
+    /// DBの要素数を返す
+    /// </summary>
+    public int NUM
+    {
+        get { return usersDB.Count; }
+    }
+
     private void Start()
     {
         usersDB = new List<User>();
+    }
+
+    private void Update()
+    {
+        for(int i = 0; i < usersDB.Count; i++)
+        {
+            models[i].transform.position = usersDB[i].POS;
+            models[i].transform.rotation = usersDB[i].RO;
+        }
     }
 
     /// <summary>
@@ -27,6 +44,18 @@ public class userDB : MonoBehaviour
         usersDB.Add(user);
     }
 
+    public void removeData(int id)
+    {
+        foreach (User u in usersDB)
+        {
+            if (u.ID == id)
+            {
+                usersDB.Remove(u);
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// データベースにTransformの情報を渡し，モデルに反映させる
     /// </summary>
@@ -36,8 +65,8 @@ public class userDB : MonoBehaviour
     public void setTransform(int id,  Vector3 pos, Quaternion ro)
     {
         usersDB[id].setTransform(pos, ro);
-        models[id].transform.position = pos;
-        models[id].transform.rotation = ro;
+        //models[id].transform.position = pos;
+        //models[id].transform.rotation = ro;
     }
 
     /// <summary>
