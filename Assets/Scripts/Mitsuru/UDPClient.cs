@@ -44,8 +44,8 @@ public class UDPClient : MonoBehaviour
         while(true)
         {
             Debug.Log("sending");
-            string message = tf.position.x.ToString();
-            Debug.Log(tf);
+            string message = tf.position.ToString(); //Ç±Ç±Ç≈ÉGÉâÅ[
+            Debug.Log(message);
             //udpClient.Send(message, message.Length);
             Debug.Log("UDP Sent" + message);
         }
