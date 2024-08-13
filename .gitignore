@@ -7,3 +7,4 @@ UserSettings/
 .vs/mrTheaterConnection/xs/UserPrefs.xml
 .vs/mrTheaterConnection/xs/project-cache/Assembly-CSharp-Debug.json
 .obj/
+obj/
