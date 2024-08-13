@@ -38,4 +38,12 @@ public class User
     {
         get { return _id; }
     }
+    public Vector3 POS
+    {
+        get => _pos;
+    }
+    public Quaternion RO
+    {
+        get => _ro;
+    }
 }

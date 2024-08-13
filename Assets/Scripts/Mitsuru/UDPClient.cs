@@ -36,10 +36,10 @@ public class UDPClient : MonoBehaviour
     {
         while(true)
         {
-            Debug.Log("sending");
+            //Debug.Log("sending");
             var message = Encoding.UTF8.GetBytes(id.ToString() + "," + transform.ToString());
             udpClient.Send(message, message.Length);
-            Debug.Log("UDP Sent" + message);
+            //Debug.Log("UDP Sent" + message);
         }
     }
 
