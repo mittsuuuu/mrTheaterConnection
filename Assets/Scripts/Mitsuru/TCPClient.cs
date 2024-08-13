@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -20,13 +21,19 @@ public class TCPClient : MonoBehaviour
 
     private String testMessage = "TCPによる送信";
 
+    CancellationToken ct; //タスク破棄用のトークン
+
     private void Awake()
     {
+        var tokenSource = new CancellationTokenSource();
+        ct = tokenSource.Token;
+
         udpClient = gameObject.GetComponent<UDPClient>();
 
         WaitConnection();
 
-        Task.Run(() => Listen());
+        Task.Run(() => Listen(), ct);
+        tokenSource.Dispose();
     }
 
     /// <summary>
@@ -84,8 +91,9 @@ public class TCPClient : MonoBehaviour
             String[] text = message.Split(",");
             if (text[0].Equals("ID"))
             {
-                Debug.Log("set id");
+                Debug.Log("set id" + text[1]);
                 udpClient.setId(int.Parse(text[1]));
+                ct.ThrowIfCancellationRequested();
             }
         }
     }
