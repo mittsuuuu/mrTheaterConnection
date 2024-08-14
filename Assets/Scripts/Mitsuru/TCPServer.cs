@@ -61,7 +61,7 @@ public class TCPServer : MonoBehaviour
         IPEndPoint re = (IPEndPoint)client_data.RemoteEndPoint; // クライアントのデータを格納する変数
 
         userDb.registerData(re.Address.ToString(), re.Port);
-        udpServer.addClient(re.Address.ToString(), re.Port);
+        udpServer.addClient();
         Debug.Log("接続完了 : " + re.AddressFamily + ", " + re.Address + ", " + re.Port) ; // クライアントのIPとポートの表示
 
         networkStream = client.GetStream();
@@ -133,6 +133,10 @@ public class TCPServer : MonoBehaviour
         foreach (NetworkStream net in networkStreams) net?.Dispose();
     }
 
+    /// <summary>
+    /// 接続を待つメソッド
+    /// 新しい接続があったらスレッドを立てる
+    /// </summary>
     private void Wait()
     {
         Debug.Log("待機中");

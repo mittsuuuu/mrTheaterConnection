@@ -30,7 +30,11 @@ public class UDPServer : MonoBehaviour
         client = new UdpClient(9000);
     }
 
-    public void addClient(string addr, int port)
+    /// <summary>
+    /// クライアントが追加されたときに呼ばれるメソッド
+    /// トークンの追加と新しいスレッドの作成をする
+    /// </summary>
+    public void addClient()
     {
         Debug.Log("add client udp");
         try
@@ -89,7 +93,7 @@ public class UDPServer : MonoBehaviour
             {
                 userDb.setTransform(myId, pos, ro);
             }
-            catch(Exception e)
+            catch
             {
                 connection = false;
                 //Debug.LogError(myId + e.ToString());
